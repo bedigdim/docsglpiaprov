@@ -1,0 +1,56 @@
+
+{
+  "version": "3.1",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "start",
+      "name": "Início"
+    },
+    {
+      "id": "nome_solicitante",
+      "type": "input",
+      "name": "Nome",
+      "data": {
+        "label": "Digite seu nome:",
+        "name": "nome_solicitante"
+      }
+    },
+    {
+      "id": "descricao",
+      "type": "textarea",
+      "name": "Descrição",
+      "data": {
+        "label": "Qual a descrição da solicitação?",
+        "name": "descricao"
+      }
+    },
+    {
+      "id": "enviar_webhook",
+      "type": "webhook",
+      "name": "Enviar Webhook",
+      "data": {
+        "url": "https://SEUSERVIDOR.com/api/criar_chamado",
+        "method": "POST",
+        "body": {
+          "nome": "{{nome_solicitante}}",
+          "descricao": "{{descricao}}"
+        }
+      }
+    },
+    {
+      "id": "final",
+      "type": "message",
+      "name": "Final",
+      "data": {
+        "text": "Solicitação enviada com sucesso. Aguarde a aprovação."
+      }
+    }
+  ],
+  "connections": {
+    "start": ["nome_solicitante"],
+    "nome_solicitante": ["descricao"],
+    "descricao": ["enviar_webhook"],
+    "enviar_webhook": ["final"]
+  }
+}
